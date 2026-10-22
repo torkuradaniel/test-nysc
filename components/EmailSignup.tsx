@@ -158,7 +158,7 @@ export default function EmailSignup() {
           {subscribed ? (
             <Message role="status">
               {welcomeEmailSent
-                ? 'You are subscribed. Check your inbox for a welcome from Northquest.'
+                ? 'You are subscribed. Check your inbox for a welcome email.'
                 : 'Your email has been saved for job updates.'}
             </Message>
           ) : (
