@@ -89,42 +89,13 @@ const GapText = styled.p`
   }
 `
 
-const GapConclusion = styled.div`
-  margin-top: 2.5rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-  }
-`
-
-const ConclusionCard = styled.div<{ $positive?: boolean }>`
-  background: ${p => p.$positive ? 'rgba(245, 166, 35, 0.14)' : 'rgba(255,255,255,0.07)'};
-  border: 0;
-  border-radius: 16px;
-  padding: 1.5rem;
-  text-align: center;
-`
-
-const ConclusionTitle = styled.p`
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 0.25rem;
-`
-
-const ConclusionSub = styled.p`
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.55);
-`
-
 /* ─── Calculator ─────────────────────────────────────────────────── */
 
-const CalcSection = styled.section`
+const CalculatorArea = styled.div`
+  margin-top: 2rem;
   background: #f7f4ee;
-  padding: 5rem 1.5rem;
+  border-radius: 22px;
+  padding: clamp(1.5rem, 4vw, 3rem);
 `
 
 const SectionLabel = styled.p`
@@ -150,7 +121,7 @@ const CalcCard = styled.div`
   border: 0;
   border-radius: 20px;
   padding: 2.5rem;
-  max-width: 680px;
+  max-width: none;
   box-shadow: 0 18px 50px rgba(45,0,87,.08);
 `
 
@@ -285,20 +256,33 @@ const PlansGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
-  max-width: 800px;
+  max-width: 1100px;
 
   @media (min-width: 600px) {
     grid-template-columns: 1fr 1fr;
   }
+
+  @media (min-width: 960px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `
 
-const PlanCard = styled.div<{ $featured?: boolean }>`
+const PlanCard = styled.button<{ $featured?: boolean; $selected: boolean }>`
+  width: 100%;
+  font: inherit;
+  text-align: left;
   border-radius: 18px;
   padding: 2rem;
   border: 0;
   background: ${p => p.$featured ? '#2d0057' : '#f3eeff'};
   position: relative;
-  box-shadow: ${p => p.$featured ? '0 18px 50px rgba(45,0,87,.18)' : 'none'};
+  box-shadow: ${p => p.$selected
+    ? '0 0 0 3px #f5a623, 0 18px 50px rgba(45,0,87,.16)'
+    : p.$featured ? '0 18px 50px rgba(45,0,87,.18)' : 'none'};
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease;
+
+  &:hover { transform: translateY(-3px); }
 `
 
 const PlanBadge = styled.span`
@@ -359,49 +343,6 @@ const PlanRowValue = styled.span<{ $featured?: boolean }>`
   text-align: right;
 `
 
-/* ─── Autosave ───────────────────────────────────────────────────── */
-
-const AutosaveSection = styled.section`
-  background: #f7f4ee;
-  padding: 4rem 1.5rem;
-`
-
-const AutosaveBox = styled.div`
-  max-width: 680px;
-  background: #ffffff;
-  border: 0;
-  border-radius: 18px;
-  padding: 2.5rem;
-  box-shadow: 0 14px 40px rgba(45,0,87,.07);
-`
-
-const AutosaveTitle = styled.h2`
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  font-family: var(--font-syne), system-ui, sans-serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #1a0a2e;
-  margin-bottom: 0.75rem;
-
-  i {
-    color: #f5a623;
-  }
-`
-
-const AutosaveText = styled.p`
-  font-size: 1rem;
-  color: #64748b;
-  line-height: 1.65;
-
-  em {
-    font-style: normal;
-    color: #2d0057;
-    font-weight: 600;
-  }
-`
-
 /* ─── Testimonials ───────────────────────────────────────────────── */
 
 const TestimonialsSection = styled.section`
@@ -410,14 +351,23 @@ const TestimonialsSection = styled.section`
 `
 
 const TestGrid = styled.div`
-  max-width: 680px;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+  }
 
   blockquote {
     background: rgba(255, 255, 255, 0.07);
     border: 0;
     border-radius: 16px;
     padding: 1.75rem;
-    margin: 0 0 1.25rem;
+    margin: 0;
+    height: 100%;
   }
 
   p {
@@ -443,6 +393,7 @@ const TestTitle = styled.h2`
   color: #ffffff;
   letter-spacing: -0.02em;
   margin-bottom: 2rem;
+  text-align: center;
 `
 
 /* ─── CTA ────────────────────────────────────────────────────────── */
@@ -533,8 +484,7 @@ const TrustItem = styled.div`
 
 /* ─── Calculator logic ───────────────────────────────────────────── */
 
-const RATE = 0.24
-const MIN_MONTHLY = 5000
+const MIN_MONTHLY = 1000
 const MAX_MONTHLY = 100000
 const STEP = 1000
 
@@ -542,23 +492,31 @@ function formatNaira(n: number): string {
   return '₦' + Math.round(n).toLocaleString('en-NG')
 }
 
-function calcSavings(monthly: number, months: number) {
+function calcSavings(monthly: number, months: number, rate: number) {
   const principal = monthly * months
-  const interest = principal * RATE * (months / 12)
+  const interest = principal * rate * (months / 12)
   return { principal, interest, total: principal + interest }
 }
+
+const planRates = {
+  qlock: { name: 'Q-Lock', rate: 0.24 },
+  qflex: { name: 'Q-Flex', rate: 0.15 },
+  autosave: { name: 'Northquest Auto-save', rate: 0.2 },
+} as const
+
+type PlanId = keyof typeof planRates
 
 /* ─── Component ──────────────────────────────────────────────────── */
 
 const testimonials = [
   {
     quote:
-      "I locked ₦20k a month for 6 months. By the time I got my first job offer, I had ₦130k sitting there. Paid my first 2 months' rent without stress.",
+      "I locked ₦70k a month for 6 months. By the time I got my first job offer, I had ₦420k sitting there. Paid my first year rent without stress.",
     author: 'Femi, Lagos',
   },
   {
     quote:
-      "I didn't believe a small amount would matter. Then I saw the interest. Started with ₦10k a month in March, had ₦70k ready by passing out parade.",
+      "I didn't believe a small amount would matter. Then I saw the interest. Started with ₦50k a month in March, had ₦300k ready by passing out parade.",
     author: 'Adaeze, Port Harcourt',
   },
 ]
@@ -566,8 +524,10 @@ const testimonials = [
 export default function ProtectClient() {
   const [monthly, setMonthly] = useState(15000)
   const [months, setMonths] = useState(6)
+  const [selectedPlan, setSelectedPlan] = useState<PlanId>('qlock')
 
-  const { principal, interest, total } = calcSavings(monthly, months)
+  const activePlan = planRates[selectedPlan]
+  const { principal, interest, total } = calcSavings(monthly, months, activePlan.rate)
   const sliderPct = ((monthly - MIN_MONTHLY) / (MAX_MONTHLY - MIN_MONTHLY)) * 100
 
   return (
@@ -576,8 +536,7 @@ export default function ProtectClient() {
         <Container>
           <PageHeadline>Protect your future.</PageHeadline>
           <PageSub>
-            The gap between your last allawee and your first salary is real. The corpers who landed well
-            saved early. Here&apos;s how.
+            You need to save for the next phase of your life.
           </PageSub>
         </Container>
       </PageHeader>
@@ -586,44 +545,95 @@ export default function ProtectClient() {
       <GapSection>
         <Container>
           <GapInner>
-            <GapLabel>The hard truth</GapLabel>
+            <GapLabel>The bills will start racking up</GapLabel>
 
             <GapLine>
               <GapDot />
-              <GapText>Your allawee stops at passing out parade.</GapText>
+              <GapText>Your allawee stops after you pass. <em>Your expenses start increasing.</em></GapText>
             </GapLine>
             <GapLine>
               <GapDot />
-              <GapText>Average job search after NYSC: <em>4 months.</em></GapText>
+              <GapText>Rent and feeding next. Important for survival.</GapText>
             </GapLine>
             <GapLine>
               <GapDot $color="#e0d0ff" />
-              <GapText>Rent in Lagos: <em>₦80,000–₦150,000/month.</em></GapText>
+              <GapText>Transport, mobile data, and other costs quietly add up.</GapText>
             </GapLine>
             <GapLine>
               <GapDot $color="#e0d0ff" />
-              <GapText>Feeding: <em>₦30,000–₦50,000/month.</em></GapText>
+              <GapText>A financial buffer gives you time and helps during the transition period.</GapText>
             </GapLine>
-
-            <GapConclusion>
-              <ConclusionCard>
-                <ConclusionTitle>Without savings</ConclusionTitle>
-                <ConclusionSub>You borrow. From family. From debt.</ConclusionSub>
-              </ConclusionCard>
-              <ConclusionCard $positive>
-                <ConclusionTitle>With savings</ConclusionTitle>
-                <ConclusionSub>You choose — negotiate better, wait for the right offer.</ConclusionSub>
-              </ConclusionCard>
-            </GapConclusion>
           </GapInner>
         </Container>
       </GapSection>
 
-      {/* Calculator */}
-      <CalcSection>
+      {/* Plans */}
+      <PlansSection>
         <Container>
-          <SectionLabel>Run the numbers</SectionLabel>
-          <SectionTitle>See what your allawee can become</SectionTitle>
+          <SectionTitle>Q-Lock, Q-Flex or Auto-save — what&apos;s right for you?</SectionTitle>
+
+          <PlansGrid>
+            <PlanCard type="button" $selected={selectedPlan === 'qlock'} aria-pressed={selectedPlan === 'qlock'} onClick={() => setSelectedPlan('qlock')}>
+              <PlanName>Q-Lock</PlanName>
+              <PlanTagline>Saving toward a goal — rent, transition buffer, course fees</PlanTagline>
+              <PlanRows>
+                <PlanRow>
+                  <PlanRowLabel>Interest rate</PlanRowLabel>
+                  <PlanRowValue>Up to 24% p.a.</PlanRowValue>
+                </PlanRow>
+                <PlanRow>
+                  <PlanRowLabel>Withdrawals</PlanRowLabel>
+                  <PlanRowValue>Fixed term — earn upfront</PlanRowValue>
+                </PlanRow>
+                <PlanRow>
+                  <PlanRowLabel>Minimum</PlanRowLabel>
+                  <PlanRowValue>₦1,000</PlanRowValue>
+                </PlanRow>
+              </PlanRows>
+            </PlanCard>
+
+            <PlanCard type="button" $selected={selectedPlan === 'qflex'} aria-pressed={selectedPlan === 'qflex'} onClick={() => setSelectedPlan('qflex')}>
+              <PlanName>Q-Flex</PlanName>
+              <PlanTagline>Flexible savings — so you can still handle emergencies</PlanTagline>
+              <PlanRows>
+                <PlanRow>
+                  <PlanRowLabel>Interest rate</PlanRowLabel>
+                  <PlanRowValue>Up to 15% p.a.</PlanRowValue>
+                </PlanRow>
+                <PlanRow>
+                  <PlanRowLabel>Withdrawals</PlanRowLabel>
+                  <PlanRowValue>Anytime, no penalty</PlanRowValue>
+                </PlanRow>
+                <PlanRow>
+                  <PlanRowLabel>Minimum</PlanRowLabel>
+                  <PlanRowValue>₦1,000</PlanRowValue>
+                </PlanRow>
+              </PlanRows>
+            </PlanCard>
+
+            <PlanCard type="button" $featured $selected={selectedPlan === 'autosave'} aria-pressed={selectedPlan === 'autosave'} onClick={() => setSelectedPlan('autosave')}>
+              <PlanBadge>Best for corpers</PlanBadge>
+              <PlanName $featured>Northquest Auto-save</PlanName>
+              <PlanTagline $featured>Automate your savings around your allawee or salary date</PlanTagline>
+              <PlanRows>
+                <PlanRow $featured>
+                  <PlanRowLabel $featured>Interest rate</PlanRowLabel>
+                  <PlanRowValue $featured>Up to 20% p.a.</PlanRowValue>
+                </PlanRow>
+                <PlanRow $featured>
+                  <PlanRowLabel $featured>Deposits</PlanRowLabel>
+                  <PlanRowValue $featured>Automatic schedule</PlanRowValue>
+                </PlanRow>
+                <PlanRow $featured>
+                  <PlanRowLabel $featured>Minimum</PlanRowLabel>
+                  <PlanRowValue $featured>₦1,000</PlanRowValue>
+                </PlanRow>
+              </PlanRows>
+            </PlanCard>
+          </PlansGrid>
+          <CalculatorArea>
+            <SectionLabel>Selected: {activePlan.name} · {Math.round(activePlan.rate * 100)}% p.a.</SectionLabel>
+            <SectionTitle>See what your allawee can become</SectionTitle>
 
           <CalcCard>
             <CalcRow>
@@ -642,7 +652,7 @@ export default function ProtectClient() {
                 style={{ '--pct': `${sliderPct}%` } as React.CSSProperties}
               />
               <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.4rem', fontSize: '0.78rem', color: '#64748b' }}>
-                <span>₦5,000</span>
+                <span>₦1,000</span>
                 <span>₦100,000</span>
               </div>
             </CalcRow>
@@ -674,78 +684,13 @@ export default function ProtectClient() {
             </CalcResult>
 
             <CalcDisclaimer>
-              Interest calculated at up to 24% p.a. for Q-Lock plans. Actual rate depends on plan type and
-              duration. This is an estimate, not a guarantee.
+              Interest calculated at up to {Math.round(activePlan.rate * 100)}% p.a. for {activePlan.name}.
+              Actual returns may depend on plan terms and duration. This is an estimate, not a guarantee.
             </CalcDisclaimer>
-          </CalcCard>
-        </Container>
-      </CalcSection>
-
-      {/* Plans */}
-      <PlansSection>
-        <Container>
-          <SectionLabel>Choose your plan</SectionLabel>
-          <SectionTitle>Q-Lock vs Q-Flex — what&apos;s right for you?</SectionTitle>
-
-          <PlansGrid>
-            <PlanCard $featured>
-              <PlanBadge>Best for corpers</PlanBadge>
-              <PlanName $featured>Q-Lock</PlanName>
-              <PlanTagline $featured>Saving toward a goal — rent, transition buffer, course fees</PlanTagline>
-              <PlanRows>
-                <PlanRow $featured>
-                  <PlanRowLabel $featured>Interest rate</PlanRowLabel>
-                  <PlanRowValue $featured>Up to 24% p.a.</PlanRowValue>
-                </PlanRow>
-                <PlanRow $featured>
-                  <PlanRowLabel $featured>Withdrawals</PlanRowLabel>
-                  <PlanRowValue $featured>Fixed term — earn upfront</PlanRowValue>
-                </PlanRow>
-                <PlanRow $featured>
-                  <PlanRowLabel $featured>Minimum</PlanRowLabel>
-                  <PlanRowValue $featured>₦5,000</PlanRowValue>
-                </PlanRow>
-              </PlanRows>
-            </PlanCard>
-
-            <PlanCard>
-              <PlanName>Q-Flex</PlanName>
-              <PlanTagline>Flexible savings — access whenever you need</PlanTagline>
-              <PlanRows>
-                <PlanRow>
-                  <PlanRowLabel>Interest rate</PlanRowLabel>
-                  <PlanRowValue>Competitive rate</PlanRowValue>
-                </PlanRow>
-                <PlanRow>
-                  <PlanRowLabel>Withdrawals</PlanRowLabel>
-                  <PlanRowValue>Anytime, no penalty</PlanRowValue>
-                </PlanRow>
-                <PlanRow>
-                  <PlanRowLabel>Minimum</PlanRowLabel>
-                  <PlanRowValue>₦5,000</PlanRowValue>
-                </PlanRow>
-              </PlanRows>
-            </PlanCard>
-          </PlansGrid>
+            </CalcCard>
+          </CalculatorArea>
         </Container>
       </PlansSection>
-
-      {/* Autosave */}
-      <AutosaveSection>
-        <Container>
-          <AutosaveBox>
-            <AutosaveTitle>
-              <i className="fi fi-sr-bolt" aria-hidden="true" />
-              Set it and forget it with Autosave
-            </AutosaveTitle>
-            <AutosaveText>
-              Autosave pulls from your account on a date you choose —{' '}
-              <em>like your allawee payment date.</em>{' '}
-              You won&apos;t spend what you don&apos;t see. Set it up once and let it run through service.
-            </AutosaveText>
-          </AutosaveBox>
-        </Container>
-      </AutosaveSection>
 
       {/* Testimonials */}
       <TestimonialsSection>
@@ -767,7 +712,7 @@ export default function ProtectClient() {
         <CTAInner>
           <CTATitle>Start today. Your future self will thank you.</CTATitle>
           <CTASub>
-            Minimum ₦5,000. Takes 3 minutes to set up. Earns while you serve.
+            Minimum ₦1,000. Takes 3 minutes to set up. Earns while you serve.
           </CTASub>
 
           <PrimaryBtn href="#">Start Saving Today</PrimaryBtn>
@@ -790,7 +735,7 @@ export default function ProtectClient() {
             </TrustItem>
             <TrustItem>
               <i className="fi fi-sr-badge-check" aria-hidden="true" />
-              <span>5,000+ corpers saving</span>
+              <span>50,000+ corpers saving</span>
             </TrustItem>
           </TrustStrip>
         </CTAInner>

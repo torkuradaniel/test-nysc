@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { Syne, DM_Sans } from 'next/font/google'
+import { Syne } from 'next/font/google'
+import Script from 'next/script'
 import StyledComponentsRegistry from '@/lib/registry'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -12,12 +13,6 @@ const syne = Syne({
   display: 'swap',
 })
 
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  variable: '--font-dm-sans',
-  display: 'swap',
-})
-
 export const metadata: Metadata = {
   title: 'What Next After NYSC? | Northquest Finance',
   description:
@@ -26,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${syne.variable} ${dmSans.variable}`}>
+    <html lang="en" className={syne.variable}>
       <body>
         <StyledComponentsRegistry>
           <Nav />
@@ -34,6 +29,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
         </StyledComponentsRegistry>
       </body>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-MBRL4NEPPS"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-MBRL4NEPPS');
+        `}
+      </Script>
     </html>
   )
 }

@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import BottomBridge from '@/components/BottomBridge'
+import EmailSignup from '@/components/EmailSignup'
 
 /* ─── Shared layout ─────────────────────────────────────────────── */
 
@@ -385,8 +386,12 @@ export default function ToolkitClient() {
                 ))}
               </ItemsGrid>
 
-              <DownloadCTA href="#" onClick={e => e.preventDefault()}>
-                ↓ Download 1-Page CV Template (PDF)
+              <DownloadCTA
+                href="https://docs.google.com/document/d/1a713U7dIqmFUwQLHpmqFh-hdrz5ox8SV8DzWQJm6hB8/edit?tab=t.0"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open editable CV template
               </DownloadCTA>
             </>
           )}
@@ -436,6 +441,7 @@ export default function ToolkitClient() {
         </Container>
       </ContentSection>
 
+      <EmailSignup />
       <BottomBridge
         heading="Your toolkit is ready. Is your safety net?"
         body={

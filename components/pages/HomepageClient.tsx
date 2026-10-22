@@ -3,8 +3,9 @@
 import React from 'react'
 import Link from 'next/link'
 import styled, { keyframes } from 'styled-components'
-import { jobs } from '@/lib/data/jobs'
+import type { Job } from '@/lib/data/jobs'
 import { skills } from '@/lib/data/skills'
+import EmailSignup from '@/components/EmailSignup'
 
 /* ─── Animations ───────────────────────────────────────────────── */
 
@@ -72,33 +73,6 @@ const HeroSub = styled.p`
   line-height: 1.65;
   max-width: 610px;
   margin: 0 auto 2.75rem;
-`
-
-const HeroCTA = styled.a`
-  display: inline-block;
-  background: #f5a623;
-  color: #1a0a2e;
-  font-weight: 700;
-  font-size: 1.05rem;
-  padding: 0.9rem 2.25rem;
-  border-radius: 12px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 36px rgba(229, 168, 47, .2);
-  }
-`
-
-const HeroNote = styled.span`
-  display: inline-block;
-  margin-left: 1rem;
-  color: rgba(255,255,255,.5);
-  font-size: .8rem;
-  letter-spacing: .04em;
-  @media (max-width: 520px) { display: none; }
 `
 
 /* ─── Three Pillars ──────────────────────────────────────────────── */
@@ -509,7 +483,6 @@ const TestAuthor = styled.cite`
 
 /* ─── Component ──────────────────────────────────────────────────── */
 
-const featuredJobs = jobs.slice(0, 4)
 const featuredSkills = skills.slice(0, 3)
 
 const testimonials = [
@@ -523,7 +496,7 @@ const testimonials = [
   },
 ]
 
-export default function HomepageClient() {
+export default function HomepageClient({ jobs: featuredJobs }: { jobs: Job[] }) {
   return (
     <>
       {/* Hero */}
@@ -673,6 +646,8 @@ export default function HomepageClient() {
           </TestGrid>
         </Container>
       </TestimonialsSection>
+
+      <EmailSignup />
     </>
   )
 }

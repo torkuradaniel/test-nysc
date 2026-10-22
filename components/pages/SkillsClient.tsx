@@ -4,6 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { skills } from '@/lib/data/skills'
 import BottomBridge from '@/components/BottomBridge'
+import EmailSignup from '@/components/EmailSignup'
 
 /* ─── Shared layout ─────────────────────────────────────────────── */
 
@@ -37,23 +38,6 @@ const PageSub = styled.p`
   color: rgba(255, 255, 255, 0.75);
   max-width: 560px;
   line-height: 1.6;
-`
-
-/* ─── Intro ──────────────────────────────────────────────────────── */
-
-const IntroSection = styled.section`
-  background: #ffffff;
-  padding: 3rem 1.5rem 2rem;
-`
-
-const IntroPara = styled.p`
-  font-size: 1.05rem;
-  color: #1a0a2e;
-  line-height: 1.7;
-  max-width: 720px;
-  background: #f7f4ee;
-  border-radius: 14px;
-  padding: 1.5rem;
 `
 
 /* ─── Skills Grid ────────────────────────────────────────────────── */
@@ -321,16 +305,7 @@ export default function SkillsClient() {
           </PageSub>
         </Container>
       </PageHeader>
-
-      <IntroSection>
-        <Container>
-          <IntroPara>
-            Your NYSC year is 12 months. Some of these skills take 8 weeks to be job-ready. That math works
-            in your favour — if you start now.
-          </IntroPara>
-        </Container>
-      </IntroSection>
-
+      
       <GridSection>
         <Container>
           <Grid>
@@ -409,6 +384,7 @@ export default function SkillsClient() {
         </Container>
       </FreelanceSection>
 
+      <EmailSignup />
       <BottomBridge
         heading="Build the skill. Then build the buffer."
         body={

@@ -3,8 +3,9 @@
 import React, { useState, useMemo } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
-import { jobs, type Job } from '@/lib/data/jobs'
+import type { Job } from '@/lib/data/jobs'
 import BottomBridge from '@/components/BottomBridge'
+import EmailSignup from '@/components/EmailSignup'
 
 /* ─── Shared layout ─────────────────────────────────────────────── */
 
@@ -40,53 +41,6 @@ const PageSub = styled.p`
   line-height: 1.6;
 `
 
-/* ─── Market Context ─────────────────────────────────────────────── */
-
-const ContextSection = styled.section`
-  background: #f7f4ee;
-  padding: 3rem 1.5rem;
-`
-
-const ContextGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  margin-bottom: 1rem;
-
-  @media (min-width: 480px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-`
-
-const StatCard = styled.div`
-  background: #ffffff;
-  border: 0;
-  box-shadow: 0 10px 32px rgba(45, 0, 87, .06);
-  border-radius: 16px;
-  padding: 1.5rem;
-  text-align: center;
-`
-
-const StatValue = styled.div`
-  font-family: var(--font-syne), system-ui, sans-serif;
-  font-size: 1.75rem;
-  font-weight: 800;
-  color: #2d0057;
-  margin-bottom: 0.25rem;
-`
-
-const StatLabel = styled.div`
-  font-size: 0.875rem;
-  color: #64748b;
-`
-
-const ContextCaption = styled.p`
-  font-size: 0.875rem;
-  color: #64748b;
-  text-align: center;
-  font-style: italic;
-`
-
 /* ─── Filter Bar ─────────────────────────────────────────────────── */
 
 const FilterSection = styled.section`
@@ -97,38 +51,56 @@ const FilterSection = styled.section`
 const FilterRow = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.25rem;
   padding-bottom: 1.5rem;
 `
 
 const FilterGroup = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.55rem;
+  flex: 1 1 180px;
+  max-width: 280px;
 `
 
 const FilterLabel = styled.label`
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-family: var(--font-syne), system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #64748b;
 `
 
 const FilterSelect = styled.select`
-  padding: 0.7rem 2.25rem 0.7rem 0.9rem;
+  width: 100%;
+  min-height: 52px;
+  padding: 0.8rem 3rem 0.8rem 1rem;
   border: 0;
-  border-radius: 10px;
-  font-size: 0.9rem;
+  border-radius: 12px;
+  font-family: var(--font-syne), system-ui, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
   color: #1a0a2e;
   background: #f3eeff;
-  box-shadow: inset 0 0 0 1px transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3 6L8 11L13 6' stroke='%232D0057' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: inset 0 0 0 1px rgba(106, 13, 173, 0);
   cursor: pointer;
-  min-width: 140px;
+  transition: background-color .15s ease, box-shadow .15s ease;
 
   &:focus {
-    outline: 2px solid #6a0dad;
-    outline-offset: 1px;
+    outline: none;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(106, 13, 173, .14), inset 0 0 0 1px #6a0dad;
+  }
+
+  &:hover:not(:focus) {
+    background-color: #eee5f8;
   }
 `
 
@@ -212,7 +184,7 @@ const LocationBadge = styled.span`
   border-radius: 99px;
 `
 
-const ViewRoleLink = styled.a`
+const ViewRoleLink = styled(Link)`
   display: inline-block;
   margin-top: 0.5rem;
   font-size: 0.875rem;
@@ -344,16 +316,19 @@ const tips = [
   },
 ]
 
-const sectors = ['All', 'Tech', 'Finance', 'FMCG', 'NGO', 'Consulting', 'Marketing']
-const locations = ['All', 'Lagos', 'Abuja', 'Port Harcourt', 'Remote']
-const sources = ['All', 'Jobberman', 'MyJobMag', 'LinkedIn']
-
 /* ─── Component ──────────────────────────────────────────────────── */
 
-export default function JobsClient() {
+export default function JobsClient({ jobs }: { jobs: Job[] }) {
   const [sector, setSector] = useState('All')
   const [location, setLocation] = useState('All')
   const [source, setSource] = useState('All')
+
+  const sectors = useMemo(() => ['All', ...new Set(jobs.map(job => job.sector))], [jobs])
+  const locations = useMemo(() => ['All', ...new Set(jobs.map(job => job.location))], [jobs])
+  const sources = useMemo(() => ['All', ...new Set(jobs.map(job => job.source))], [jobs])
+  const lastUpdated = jobs[0]?.datePosted
+    ? new Intl.DateTimeFormat('en-NG', { dateStyle: 'long' }).format(new Date(`${jobs[0].datePosted}T00:00:00`))
+    : null
 
   const filtered = useMemo<Job[]>(() => {
     return jobs.filter(j => {
@@ -362,7 +337,7 @@ export default function JobsClient() {
       if (source !== 'All' && j.source !== source) return false
       return true
     })
-  }, [sector, location, source])
+  }, [jobs, sector, location, source])
 
   return (
     <>
@@ -370,30 +345,10 @@ export default function JobsClient() {
         <Container>
           <PageHeadline>Find your first job after NYSC</PageHeadline>
           <PageSub>
-            Curated entry-level roles updated weekly. No noise — just opportunities worth your time.
+            Curated entry-level roles updated weekly.
           </PageSub>
         </Container>
       </PageHeader>
-
-      <ContextSection>
-        <Container>
-          <ContextGrid>
-            <StatCard>
-              <StatValue>3–6 months</StatValue>
-              <StatLabel>Average job search duration after NYSC</StatLabel>
-            </StatCard>
-            <StatCard>
-              <StatValue>Lagos, Abuja, PH</StatValue>
-              <StatLabel>Where 70%+ of graduate roles are concentrated</StatLabel>
-            </StatCard>
-            <StatCard>
-              <StatValue>Tech, Finance & FMCG</StatValue>
-              <StatLabel>Top 3 sectors hiring entry-level</StatLabel>
-            </StatCard>
-          </ContextGrid>
-          <ContextCaption>Knowing what the market looks like is half the battle.</ContextCaption>
-        </Container>
-      </ContextSection>
 
       <FilterSection>
         <Container>
@@ -437,7 +392,7 @@ export default function JobsClient() {
       <ListingsSection>
         <Container>
           <UpdatedTag>
-            Last updated: <span>January 14, 2025</span>
+            {lastUpdated ? <>Last updated: <span>{lastUpdated}</span></> : 'New opportunities are coming soon.'}
           </UpdatedTag>
 
           {filtered.length === 0 ? (
@@ -455,7 +410,7 @@ export default function JobsClient() {
                     <SourceBadge>via {job.source}</SourceBadge>
                     <span style={{ fontSize: '0.75rem', color: '#64748b' }}>{job.datePosted}</span>
                   </JobMeta>
-                  <ViewRoleLink href={job.sourceUrl} target="_blank" rel="noopener noreferrer">
+                  <ViewRoleLink href={`/jobs/${job.id}`}>
                     View Role
                   </ViewRoleLink>
                 </JobCard>
@@ -483,6 +438,7 @@ export default function JobsClient() {
         </Container>
       </TipsSection>
 
+      <EmailSignup />
       <BottomBridge />
     </>
   )

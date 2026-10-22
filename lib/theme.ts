@@ -11,5 +11,5 @@ export const colors = {
 
 export const fonts = {
   display: "var(--font-syne), system-ui, sans-serif",
-  body: "var(--font-dm-sans), system-ui, sans-serif",
+  body: "Georgia, 'Times New Roman', serif",
 }
