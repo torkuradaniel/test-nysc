@@ -3,6 +3,7 @@ import { Syne, DM_Sans } from 'next/font/google'
 import StyledComponentsRegistry from '@/lib/registry'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import '@flaticon/flaticon-uicons/css/solid/rounded.css'
 import './globals.css'
 
 const syne = Syne({

@@ -7,14 +7,15 @@
 }
 
 :root {
-  --purple-dark: #2d0057;
-  --purple-mid: #6a0dad;
-  --purple-light: #f3eeff;
-  --gold: #f5a623;
+  --purple-dark: #261334;
+  --purple-mid: #75458f;
+  --purple-light: #f3eee7;
+  --gold: #e5a82f;
   --white: #ffffff;
-  --text-dark: #1a0a2e;
-  --text-muted: #64748b;
-  --border: #e0d0ff;
+  --text-dark: #201c24;
+  --text-muted: #6e6871;
+  --border: #ddd5ca;
+  --paper: #f7f4ee;
 }
 
 html {
@@ -26,11 +27,24 @@ html {
 body {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
   color: var(--text-dark);
-  background: var(--white);
+  background: var(--paper);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+::selection { color: #261334; background: #e5a82f; }
+
+:focus-visible { outline: 2px solid #e5a82f; outline-offset: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 a {

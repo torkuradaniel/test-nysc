@@ -5,27 +5,27 @@ import Link from 'next/link'
 import styled from 'styled-components'
 
 const Section = styled.section`
-  background: #2d0057;
-  padding: 4rem 1.5rem;
-  text-align: center;
+  background: #261334;
+  padding: 6rem 1.5rem;
 `
 
 const Inner = styled.div`
-  max-width: 640px;
+  max-width: 760px;
   margin: 0 auto;
+  text-align: center;
 `
 
 const GoldBar = styled.div`
-  width: 3px;
-  height: 48px;
-  background: #f5a623;
-  margin: 0 auto 1.75rem;
+  width: 72px;
+  height: 3px;
+  background: #e5a82f;
+  margin: 0 auto 2rem;
   border-radius: 2px;
 `
 
 const Heading = styled.p`
   font-family: var(--font-syne), system-ui, sans-serif;
-  font-size: 1.5rem;
+  font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 1rem;
@@ -33,7 +33,10 @@ const Heading = styled.p`
 `
 
 const Body = styled.p`
-  font-size: 1rem;
+  font-size: 1.05rem;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
   color: rgba(255, 255, 255, 0.72);
   margin-bottom: 2rem;
   line-height: 1.65;
@@ -51,13 +54,13 @@ const CTA = styled(Link)`
   font-weight: 700;
   font-size: 1rem;
   padding: 0.9rem 2rem;
-  border-radius: 8px;
+  border-radius: 10px;
   text-decoration: none;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245, 166, 35, 0.4);
+    box-shadow: 0 10px 30px rgba(229, 168, 47, 0.18);
   }
 `
 
@@ -70,7 +73,7 @@ interface Props {
 export default function BottomBridge({
   heading = 'While you search, your money should be working.',
   body,
-  cta = 'Start saving your allawee →',
+  cta = 'Start saving your allawee',
 }: Props) {
   return (
     <Section>

@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import Link from 'next/link'
 import styled from 'styled-components'
 
 /* ─── Shared layout ─────────────────────────────────────────────── */
@@ -15,29 +14,18 @@ const Container = styled.div`
 /* ─── Page Header ────────────────────────────────────────────────── */
 
 const PageHeader = styled.section`
-  background: #2d0057;
-  padding: 5rem 1.5rem 4.5rem;
+  background: radial-gradient(circle at 82% 20%, rgba(141,86,171,.3), transparent 30%), #2d0057;
+  padding: 7rem 1.5rem 5.5rem;
   position: relative;
-  text-align: center;
 
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 15%;
-    width: 4px;
-    height: 70%;
-    background: #f5a623;
-    border-radius: 0 2px 2px 0;
-  }
 `
 
 const PageHeadline = styled.h1`
   font-family: var(--font-syne), system-ui, sans-serif;
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-size: clamp(2.8rem, 7vw, 5rem);
   font-weight: 800;
   color: #ffffff;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.06em;
   margin-bottom: 1rem;
   line-height: 1.1;
 `
@@ -46,14 +34,14 @@ const PageSub = styled.p`
   font-size: 1.1rem;
   color: rgba(255, 255, 255, 0.75);
   max-width: 580px;
-  margin: 0 auto;
+  margin: 0;
   line-height: 1.65;
 `
 
 /* ─── The Gap ────────────────────────────────────────────────────── */
 
 const GapSection = styled.section`
-  background: #1a0a2e;
+  background: #21112c;
   padding: 5rem 1.5rem;
 `
 
@@ -76,12 +64,7 @@ const GapLine = styled.div`
   grid-template-columns: auto 1fr;
   gap: 1rem;
   align-items: start;
-  padding: 1rem 0;
-  border-bottom: 1px solid rgba(224, 208, 255, 0.1);
-
-  &:last-child {
-    border-bottom: none;
-  }
+  padding: .7rem 0;
 `
 
 const GapDot = styled.div<{ $color?: string }>`
@@ -118,9 +101,9 @@ const GapConclusion = styled.div`
 `
 
 const ConclusionCard = styled.div<{ $positive?: boolean }>`
-  background: ${p => p.$positive ? 'rgba(245, 166, 35, 0.08)' : 'rgba(255,255,255,0.04)'};
-  border: 1px solid ${p => p.$positive ? 'rgba(245, 166, 35, 0.3)' : 'rgba(255,255,255,0.1)'};
-  border-radius: 10px;
+  background: ${p => p.$positive ? 'rgba(245, 166, 35, 0.14)' : 'rgba(255,255,255,0.07)'};
+  border: 0;
+  border-radius: 16px;
   padding: 1.5rem;
   text-align: center;
 `
@@ -140,7 +123,7 @@ const ConclusionSub = styled.p`
 /* ─── Calculator ─────────────────────────────────────────────────── */
 
 const CalcSection = styled.section`
-  background: #f3eeff;
+  background: #f7f4ee;
   padding: 5rem 1.5rem;
 `
 
@@ -164,10 +147,11 @@ const SectionTitle = styled.h2`
 
 const CalcCard = styled.div`
   background: #ffffff;
-  border: 1px solid #e0d0ff;
-  border-radius: 16px;
+  border: 0;
+  border-radius: 20px;
   padding: 2.5rem;
   max-width: 680px;
+  box-shadow: 0 18px 50px rgba(45,0,87,.08);
 `
 
 const CalcRow = styled.div`
@@ -236,8 +220,8 @@ const MonthButtons = styled.div`
 const MonthBtn = styled.button<{ $active: boolean }>`
   padding: 0.55rem 1.25rem;
   border-radius: 8px;
-  border: 2px solid ${p => p.$active ? '#2d0057' : '#e0d0ff'};
-  background: ${p => p.$active ? '#2d0057' : '#ffffff'};
+  border: 0;
+  background: ${p => p.$active ? '#2d0057' : '#f3eeff'};
   color: ${p => p.$active ? '#ffffff' : '#64748b'};
   font-weight: 700;
   font-size: 0.9rem;
@@ -245,14 +229,14 @@ const MonthBtn = styled.button<{ $active: boolean }>`
   transition: all 0.15s;
 
   &:hover {
-    border-color: #2d0057;
+    background: ${p => p.$active ? '#2d0057' : '#e9dcf1'};
     color: ${p => p.$active ? '#ffffff' : '#2d0057'};
   }
 `
 
 const CalcResult = styled.div`
-  background: #2d0057;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #2d0057, #4a1764);
+  border-radius: 16px;
   padding: 1.75rem;
   margin-top: 1.5rem;
   display: grid;
@@ -309,11 +293,12 @@ const PlansGrid = styled.div`
 `
 
 const PlanCard = styled.div<{ $featured?: boolean }>`
-  border-radius: 14px;
+  border-radius: 18px;
   padding: 2rem;
-  border: 2px solid ${p => p.$featured ? '#f5a623' : '#e0d0ff'};
+  border: 0;
   background: ${p => p.$featured ? '#2d0057' : '#f3eeff'};
   position: relative;
+  box-shadow: ${p => p.$featured ? '0 18px 50px rgba(45,0,87,.18)' : 'none'};
 `
 
 const PlanBadge = styled.span`
@@ -355,12 +340,12 @@ const PlanRow = styled.div<{ $featured?: boolean }>`
   justify-content: space-between;
   gap: 0.5rem;
   font-size: 0.875rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid ${p => p.$featured ? 'rgba(255,255,255,0.1)' : '#e0d0ff'};
+  padding: .7rem .8rem;
+  border-radius: 8px;
+  background: ${p => p.$featured ? 'rgba(255,255,255,.055)' : 'rgba(255,255,255,.55)'};
 
   &:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+    padding-bottom: .7rem;
   }
 `
 
@@ -377,25 +362,32 @@ const PlanRowValue = styled.span<{ $featured?: boolean }>`
 /* ─── Autosave ───────────────────────────────────────────────────── */
 
 const AutosaveSection = styled.section`
-  background: #f3eeff;
+  background: #f7f4ee;
   padding: 4rem 1.5rem;
 `
 
 const AutosaveBox = styled.div`
   max-width: 680px;
   background: #ffffff;
-  border: 1px solid #e0d0ff;
-  border-radius: 14px;
+  border: 0;
+  border-radius: 18px;
   padding: 2.5rem;
-  border-left: 4px solid #f5a623;
+  box-shadow: 0 14px 40px rgba(45,0,87,.07);
 `
 
 const AutosaveTitle = styled.h2`
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
   font-family: var(--font-syne), system-ui, sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
   color: #1a0a2e;
   margin-bottom: 0.75rem;
+
+  i {
+    color: #f5a623;
+  }
 `
 
 const AutosaveText = styled.p`
@@ -421,10 +413,9 @@ const TestGrid = styled.div`
   max-width: 680px;
 
   blockquote {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(224, 208, 255, 0.15);
-    border-left: 4px solid #f5a623;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 0;
+    border-radius: 16px;
     padding: 1.75rem;
     margin: 0 0 1.25rem;
   }
@@ -457,7 +448,7 @@ const TestTitle = styled.h2`
 /* ─── CTA ────────────────────────────────────────────────────────── */
 
 const CTASection = styled.section`
-  background: #f3eeff;
+  background: #f7f4ee;
   padding: 5rem 1.5rem;
   text-align: center;
 `
@@ -535,7 +526,7 @@ const TrustItem = styled.div`
   font-weight: 600;
   color: #64748b;
 
-  span:first-child {
+  i {
     color: #6a0dad;
   }
 `
@@ -743,7 +734,10 @@ export default function ProtectClient() {
       <AutosaveSection>
         <Container>
           <AutosaveBox>
-            <AutosaveTitle>⚡ Set it and forget it with Autosave</AutosaveTitle>
+            <AutosaveTitle>
+              <i className="fi fi-sr-bolt" aria-hidden="true" />
+              Set it and forget it with Autosave
+            </AutosaveTitle>
             <AutosaveText>
               Autosave pulls from your account on a date you choose —{' '}
               <em>like your allawee payment date.</em>{' '}
@@ -776,26 +770,26 @@ export default function ProtectClient() {
             Minimum ₦5,000. Takes 3 minutes to set up. Earns while you serve.
           </CTASub>
 
-          <PrimaryBtn href="#">Start Saving Today →</PrimaryBtn>
+          <PrimaryBtn href="#">Start Saving Today</PrimaryBtn>
           <div style={{ marginTop: '1rem', textAlign: 'center' }}>
             <SecondaryBtn href="#">Download the App</SecondaryBtn>
           </div>
 
           <TrustStrip>
             <TrustItem>
-              <span>✓</span>
+              <i className="fi fi-sr-badge-check" aria-hidden="true" />
               <span>CBN-compliant</span>
             </TrustItem>
             <TrustItem>
-              <span>✓</span>
+              <i className="fi fi-sr-badge-check" aria-hidden="true" />
               <span>BVN-secured</span>
             </TrustItem>
             <TrustItem>
-              <span>✓</span>
-              <span>4.8★ App Store</span>
+              <i className="fi fi-sr-star" aria-hidden="true" />
+              <span>4.8 App Store</span>
             </TrustItem>
             <TrustItem>
-              <span>✓</span>
+              <i className="fi fi-sr-badge-check" aria-hidden="true" />
               <span>5,000+ corpers saving</span>
             </TrustItem>
           </TrustStrip>

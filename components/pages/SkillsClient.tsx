@@ -16,28 +16,18 @@ const Container = styled.div`
 /* ─── Page Header ────────────────────────────────────────────────── */
 
 const PageHeader = styled.section`
-  background: #2d0057;
-  padding: 4rem 1.5rem 3.5rem;
+  background: radial-gradient(circle at 82% 20%, rgba(141,86,171,.3), transparent 30%), #2d0057;
+  padding: 6.5rem 1.5rem 5rem;
   position: relative;
 
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 15%;
-    width: 4px;
-    height: 70%;
-    background: #f5a623;
-    border-radius: 0 2px 2px 0;
-  }
 `
 
 const PageHeadline = styled.h1`
   font-family: var(--font-syne), system-ui, sans-serif;
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
   font-weight: 800;
   color: #ffffff;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.055em;
   margin-bottom: 0.75rem;
   line-height: 1.1;
 `
@@ -61,8 +51,9 @@ const IntroPara = styled.p`
   color: #1a0a2e;
   line-height: 1.7;
   max-width: 720px;
-  border-left: 4px solid #f5a623;
-  padding-left: 1.25rem;
+  background: #f7f4ee;
+  border-radius: 14px;
+  padding: 1.5rem;
 `
 
 /* ─── Skills Grid ────────────────────────────────────────────────── */
@@ -88,12 +79,15 @@ const Grid = styled.div`
 
 const SkillCard = styled.article`
   background: #f3eeff;
-  border: 1px solid #e0d0ff;
-  border-radius: 12px;
+  border: 0;
+  border-radius: 16px;
   padding: 1.75rem;
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  transition: transform .2s ease, box-shadow .2s ease;
+
+  &:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(45,0,87,.08); }
 `
 
 const SkillHeader = styled.div`
@@ -112,6 +106,9 @@ const SkillName = styled.h2`
 `
 
 const DemandBadge = styled.span<{ $demand: string }>`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -151,14 +148,14 @@ const SkillRow = styled.div`
 
 const Divider = styled.hr`
   border: none;
-  border-top: 1px solid #e0d0ff;
+  border-top: 1px solid rgba(106,13,173,.1);
   margin: 0.5rem 0;
 `
 
 /* ─── Free Resources ─────────────────────────────────────────────── */
 
 const ResourcesSection = styled.section`
-  background: #f3eeff;
+  background: #f7f4ee;
   padding: 5rem 1.5rem;
 `
 
@@ -196,12 +193,16 @@ const ResourceGrid = styled.div`
 
 const ResourceCard = styled.div`
   background: #ffffff;
-  border: 1px solid #e0d0ff;
-  border-radius: 10px;
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(45,0,87,.05);
   padding: 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  transition: transform .2s ease;
+
+  &:hover { transform: translateY(-2px); }
 `
 
 const ResourceName = styled.h3`
@@ -219,20 +220,10 @@ const ResourceNote = styled.p`
 /* ─── Freelance Platforms ────────────────────────────────────────── */
 
 const FreelanceSection = styled.section`
-  background: #2d0057;
+  background: radial-gradient(circle at 88% 14%, rgba(245,166,35,.16), transparent 28%), #2d0057;
   padding: 5rem 1.5rem;
   position: relative;
 
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 15%;
-    width: 4px;
-    height: 70%;
-    background: #f5a623;
-    border-radius: 0 2px 2px 0;
-  }
 `
 
 const FreelanceTitle = styled.h2`
@@ -269,9 +260,12 @@ const PlatformGrid = styled.div`
 
 const PlatformCard = styled.div`
   background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(224, 208, 255, 0.2);
-  border-radius: 10px;
+  border: 0;
+  border-radius: 14px;
   padding: 1.5rem;
+  transition: background .2s ease, transform .2s ease;
+
+  &:hover { background: rgba(255,255,255,.1); transform: translateY(-2px); }
 `
 
 const PlatformName = styled.h3`
@@ -345,7 +339,11 @@ export default function SkillsClient() {
                 <SkillHeader>
                   <SkillName>{skill.name}</SkillName>
                   <DemandBadge $demand={skill.demand}>
-                    {skill.demandEmoji} {skill.demandLabel}
+                    <i
+                      aria-hidden="true"
+                      className={`fi fi-sr-${skill.demand === 'high' ? 'flame' : skill.demand === 'growing' ? 'bolt' : 'chart-histogram'}`}
+                    />
+                    {skill.demandLabel}
                   </DemandBadge>
                 </SkillHeader>
 

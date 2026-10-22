@@ -17,28 +17,18 @@ const Container = styled.div`
 /* ─── Page Header ────────────────────────────────────────────────── */
 
 const PageHeader = styled.section`
-  background: #2d0057;
-  padding: 4rem 1.5rem 3.5rem;
+  background: radial-gradient(circle at 82% 20%, rgba(141,86,171,.3), transparent 30%), #2d0057;
+  padding: 6.5rem 1.5rem 5rem;
   position: relative;
 
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 15%;
-    width: 4px;
-    height: 70%;
-    background: #f5a623;
-    border-radius: 0 2px 2px 0;
-  }
 `
 
 const PageHeadline = styled.h1`
   font-family: var(--font-syne), system-ui, sans-serif;
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
   font-weight: 800;
   color: #ffffff;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.055em;
   margin-bottom: 0.75rem;
   line-height: 1.1;
 `
@@ -53,7 +43,7 @@ const PageSub = styled.p`
 /* ─── Market Context ─────────────────────────────────────────────── */
 
 const ContextSection = styled.section`
-  background: #f3eeff;
+  background: #f7f4ee;
   padding: 3rem 1.5rem;
 `
 
@@ -70,8 +60,9 @@ const ContextGrid = styled.div`
 
 const StatCard = styled.div`
   background: #ffffff;
-  border: 1px solid #e0d0ff;
-  border-radius: 10px;
+  border: 0;
+  box-shadow: 0 10px 32px rgba(45, 0, 87, .06);
+  border-radius: 16px;
   padding: 1.5rem;
   text-align: center;
 `
@@ -100,8 +91,7 @@ const ContextCaption = styled.p`
 
 const FilterSection = styled.section`
   background: #ffffff;
-  padding: 2rem 1.5rem 0;
-  border-bottom: 1px solid #e0d0ff;
+  padding: 2rem 1.5rem .5rem;
 `
 
 const FilterRow = styled.div`
@@ -126,12 +116,13 @@ const FilterLabel = styled.label`
 `
 
 const FilterSelect = styled.select`
-  padding: 0.45rem 0.75rem;
-  border: 1px solid #e0d0ff;
-  border-radius: 6px;
+  padding: 0.7rem 2.25rem 0.7rem 0.9rem;
+  border: 0;
+  border-radius: 10px;
   font-size: 0.9rem;
   color: #1a0a2e;
-  background: #ffffff;
+  background: #f3eeff;
+  box-shadow: inset 0 0 0 1px transparent;
   cursor: pointer;
   min-width: 140px;
 
@@ -170,13 +161,16 @@ const ListingsGrid = styled.div`
 `
 
 const JobCard = styled.article`
-  background: #f3eeff;
-  border: 1px solid #e0d0ff;
-  border-radius: 10px;
+  background: #f7f4ee;
+  border: 0;
+  border-radius: 16px;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  transition: transform .2s ease, box-shadow .2s ease;
+
+  &:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(45,0,87,.08); }
 `
 
 const JobRole = styled.h2`
@@ -212,8 +206,8 @@ const LocationBadge = styled.span`
   font-size: 0.75rem;
   font-weight: 600;
   color: #64748b;
-  background: #f3eeff;
-  border: 1px solid #e0d0ff;
+  background: #f7f4ee;
+  border: 0;
   padding: 0.2rem 0.6rem;
   border-radius: 99px;
 `
@@ -278,10 +272,10 @@ const TipsGrid = styled.div`
 
 const TipCard = styled.div`
   background: #ffffff;
-  border: 1px solid #e0d0ff;
-  border-radius: 10px;
+  border: 0;
+  border-radius: 16px;
   padding: 1.5rem;
-  border-left: 4px solid #f5a623;
+  box-shadow: 0 10px 32px rgba(45,0,87,.06);
 `
 
 const TipNumber = styled.span`
@@ -462,7 +456,7 @@ export default function JobsClient() {
                     <span style={{ fontSize: '0.75rem', color: '#64748b' }}>{job.datePosted}</span>
                   </JobMeta>
                   <ViewRoleLink href={job.sourceUrl} target="_blank" rel="noopener noreferrer">
-                    View Role →
+                    View Role
                   </ViewRoleLink>
                 </JobCard>
               ))}
@@ -482,7 +476,7 @@ export default function JobsClient() {
                 <TipNumber>{i + 1}</TipNumber>
                 <TipTitle>{tip.title}</TipTitle>
                 <TipText>{tip.text}</TipText>
-                <TipLink href={tip.link}>See toolkit →</TipLink>
+                <TipLink href={tip.link}>See toolkit</TipLink>
               </TipCard>
             ))}
           </TipsGrid>

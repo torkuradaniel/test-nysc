@@ -24,46 +24,54 @@ const Container = styled.div`
 /* ─── Hero ───────────────────────────────────────────────────────── */
 
 const HeroSection = styled.section`
-  background: #2d0057;
-  padding: 5rem 1.5rem 6rem;
+  background:
+    radial-gradient(circle at 78% 22%, rgba(141, 86, 171, .28), transparent 32%),
+    linear-gradient(145deg, #24112f 0%, #341445 100%);
+  padding: clamp(5rem, 10vw, 8.5rem) 1.5rem 5rem;
   position: relative;
   overflow: hidden;
 
   &::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 10%;
-    width: 4px;
-    height: 60%;
-    background: #f5a623;
-    border-radius: 0 2px 2px 0;
+    inset: 0;
+    width: 420px;
+    height: 420px;
+    left: auto;
+    right: -180px;
+    top: -170px;
+    border-radius: 50%;
+    border: 80px solid rgba(229, 168, 47, .08);
   }
 `
 
 const HeroInner = styled.div`
-  max-width: 760px;
+  max-width: 1200px;
   margin: 0 auto;
+  position: relative;
   text-align: center;
   animation: ${fadeUp} 0.6s ease both;
 `
 
 const HeroHeadline = styled.h1`
   font-family: var(--font-syne), system-ui, sans-serif;
-  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-size: clamp(3.5rem, 9vw, 7.4rem);
   font-weight: 800;
   color: #ffffff;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  margin-bottom: 1.25rem;
+  line-height: 0.93;
+  letter-spacing: -0.065em;
+  margin-bottom: 2rem;
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
 `
 
 const HeroSub = styled.p`
   font-size: clamp(1rem, 2vw, 1.2rem);
   color: rgba(255, 255, 255, 0.78);
   line-height: 1.65;
-  max-width: 580px;
-  margin: 0 auto 2.5rem;
+  max-width: 610px;
+  margin: 0 auto 2.75rem;
 `
 
 const HeroCTA = styled.a`
@@ -73,22 +81,31 @@ const HeroCTA = styled.a`
   font-weight: 700;
   font-size: 1.05rem;
   padding: 0.9rem 2.25rem;
-  border-radius: 8px;
+  border-radius: 12px;
   text-decoration: none;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245, 166, 35, 0.45);
+    box-shadow: 0 12px 36px rgba(229, 168, 47, .2);
   }
+`
+
+const HeroNote = styled.span`
+  display: inline-block;
+  margin-left: 1rem;
+  color: rgba(255,255,255,.5);
+  font-size: .8rem;
+  letter-spacing: .04em;
+  @media (max-width: 520px) { display: none; }
 `
 
 /* ─── Three Pillars ──────────────────────────────────────────────── */
 
 const PillarsSection = styled.section`
-  background: #ffffff;
-  padding: 5rem 1.5rem;
+  background: #f7f4ee;
+  padding: 7rem 1.5rem;
 `
 
 const SectionLabel = styled.p`
@@ -102,18 +119,19 @@ const SectionLabel = styled.p`
 
 const SectionTitle = styled.h2`
   font-family: var(--font-syne), system-ui, sans-serif;
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-size: clamp(2rem, 4vw, 3.25rem);
   font-weight: 700;
   color: #1a0a2e;
   letter-spacing: -0.02em;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
+  max-width: 720px;
   line-height: 1.2;
 `
 
 const PillarsGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: 0;
 
   @media (min-width: 640px) {
     grid-template-columns: repeat(2, 1fr);
@@ -126,27 +144,31 @@ const PillarsGrid = styled.div`
 
 const PillarCard = styled(Link)`
   display: block;
-  background: #f3eeff;
-  border: 1px solid #e0d0ff;
-  border-radius: 12px;
+  background: #ffffff;
+  border: 0;
+  border-radius: 18px;
   padding: 2rem;
+  box-shadow: 0 12px 40px rgba(38, 19, 52, .07);
   text-decoration: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(106, 13, 173, 0.12);
+    box-shadow: 0 20px 48px rgba(38, 19, 52, .12);
   }
+
 `
 
 const PillarIcon = styled.div`
   font-size: 2rem;
-  margin-bottom: 1rem;
+  color: #6a0dad;
+  line-height: 1;
+  margin-bottom: 2rem;
 `
 
 const PillarTitle = styled.h3`
   font-family: var(--font-syne), system-ui, sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: #1a0a2e;
   margin-bottom: 0.75rem;
@@ -164,13 +186,14 @@ const PillarArrow = styled.span`
   font-size: 0.875rem;
   font-weight: 700;
   color: #6a0dad;
+  text-decoration: none;
 `
 
 /* ─── Honest Transition ──────────────────────────────────────────── */
 
 const TransitionSection = styled.section`
-  background: #2d0057;
-  padding: 5rem 1.5rem;
+  background: linear-gradient(135deg, #e7ab34, #f1c665);
+  padding: 6rem 1.5rem;
   position: relative;
 
   &::before {
@@ -186,26 +209,26 @@ const TransitionSection = styled.section`
 `
 
 const TransitionInner = styled.div`
-  max-width: 680px;
-  margin: 0 auto;
+  max-width: 1000px;
+  margin: 0;
 `
 
 const TransitionStat = styled.p`
   font-family: var(--font-syne), system-ui, sans-serif;
   font-size: clamp(1.4rem, 3vw, 2rem);
   font-weight: 700;
-  color: #ffffff;
+  color: #261334;
   line-height: 1.35;
   margin-bottom: 1rem;
 
   &:not(:last-child) {
     padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(224, 208, 255, 0.15);
+    opacity: .94;
   }
 
   em {
     font-style: normal;
-    color: #f5a623;
+    color: #ffffff;
   }
 `
 
@@ -213,7 +236,7 @@ const TransitionStat = styled.p`
 
 const TeaserSection = styled.section`
   background: #ffffff;
-  padding: 5rem 1.5rem;
+  padding: 7rem 1.5rem;
 `
 
 const SectionHeader = styled.div`
@@ -248,10 +271,13 @@ const JobsGrid = styled.div`
 `
 
 const JobCard = styled.div`
-  background: #f3eeff;
-  border: 1px solid #e0d0ff;
-  border-radius: 10px;
+  background: #f7f4ee;
+  border: 0;
+  border-radius: 14px;
   padding: 1.5rem;
+  transition: transform .2s ease, background .2s ease;
+
+  &:hover { transform: translateY(-3px); background: #f3eee7; }
 `
 
 const JobRole = styled.h3`
@@ -273,16 +299,20 @@ const SourceTag = styled.span`
   font-size: 0.75rem;
   font-weight: 600;
   color: #6a0dad;
-  background: #e0d0ff;
+  background: #f3eee7;
   padding: 0.2rem 0.6rem;
-  border-radius: 99px;
+  border-radius: 999px;
 `
 
 /* ─── Skills Teaser ──────────────────────────────────────────────── */
 
 const SkillsTeaserSection = styled.section`
-  background: #f3eeff;
-  padding: 5rem 1.5rem;
+  background: #261334;
+  padding: 7rem 1.5rem;
+
+  ${SectionLabel} { color: #e5a82f; }
+  ${SectionTitle} { color: #ffffff; }
+  ${SeeAllLink} { color: #e5a82f; }
 `
 
 const SkillsGrid = styled.div`
@@ -300,91 +330,122 @@ const SkillsGrid = styled.div`
 `
 
 const SkillCard = styled.div`
-  background: #ffffff;
-  border: 1px solid #e0d0ff;
-  border-radius: 10px;
-  padding: 1.5rem;
+  background: rgba(255,255,255,.07);
+  border: 0;
+  border-radius: 14px;
+  padding: 2rem;
 `
 
 const SkillName = styled.h3`
   font-family: var(--font-syne), system-ui, sans-serif;
   font-size: 1rem;
   font-weight: 700;
-  color: #1a0a2e;
+  color: #ffffff;
   margin-bottom: 0.5rem;
 `
 
 const SkillIncome = styled.p`
   font-size: 0.875rem;
   font-weight: 600;
-  color: #6a0dad;
+  color: #e5a82f;
   margin-bottom: 0.25rem;
 `
 
 const SkillTime = styled.p`
   font-size: 0.8rem;
-  color: #64748b;
+  color: rgba(255,255,255,.58);
 `
 
 /* ─── Financial Bridge ───────────────────────────────────────────── */
 
 const BridgeSection = styled.section`
-  background: #ffffff;
-  padding: 5rem 1.5rem;
+  background: #f7f4ee;
+  padding: 7rem 1.5rem;
 `
 
 const BridgeInner = styled.div`
-  max-width: 760px;
+  max-width: 1200px;
   margin: 0 auto;
 `
 
 const BridgeBox = styled.div`
-  background: #2d0057;
-  border-radius: 16px;
-  padding: 3rem 2.5rem;
+  display: grid;
+  gap: 2.5rem;
+  background:
+    radial-gradient(circle at 95% 10%, rgba(229, 168, 47, .22), transparent 34%),
+    #2d0057;
+  border-radius: 24px;
+  padding: clamp(2rem, 5vw, 4rem);
   position: relative;
   overflow: hidden;
 
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: #f5a623;
-    border-radius: 0;
+  @media (min-width: 800px) {
+    grid-template-columns: minmax(0, 1fr) minmax(320px, .8fr);
+    align-items: center;
   }
+`
+
+const BridgeCopy = styled.div`
+  max-width: 560px;
 `
 
 const BridgeHeading = styled.h2`
   font-family: var(--font-syne), system-ui, sans-serif;
-  font-size: clamp(1.3rem, 2.5vw, 1.75rem);
-  font-weight: 700;
+  font-size: clamp(1.8rem, 3.6vw, 3rem);
+  font-weight: 800;
   color: #ffffff;
   margin-bottom: 1rem;
-  line-height: 1.3;
+  line-height: 1.12;
+  letter-spacing: -.035em;
 `
 
 const BridgeBody = styled.p`
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.75);
   line-height: 1.65;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 `
 
 const StatCallout = styled.div`
-  background: rgba(245, 166, 35, 0.12);
-  border: 1px solid rgba(245, 166, 35, 0.3);
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
-  margin-bottom: 2rem;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow: 0 24px 70px rgba(15, 3, 25, .28);
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    height: 8px;
+    margin-top: 1.5rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #f5a623 0 76%, #eee8f1 76%);
+  }
+
+  small {
+    display: block;
+    color: #786e7e;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: .55rem;
+  }
+
+  strong {
+    display: block;
+    color: #2d0057;
+    font-family: var(--font-syne), system-ui, sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1;
+    letter-spacing: -.04em;
+    margin-bottom: .6rem;
+  }
 
   p {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #f5a623;
-    line-height: 1.4;
+    color: #64748b;
+    font-size: .9rem;
+    line-height: 1.5;
   }
 `
 
@@ -395,7 +456,7 @@ const BridgeCTA = styled(Link)`
   font-weight: 700;
   font-size: 1rem;
   padding: 0.875rem 2rem;
-  border-radius: 8px;
+  border-radius: 10px;
   text-decoration: none;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 
@@ -408,14 +469,14 @@ const BridgeCTA = styled(Link)`
 /* ─── Testimonials ───────────────────────────────────────────────── */
 
 const TestimonialsSection = styled.section`
-  background: #f3eeff;
-  padding: 5rem 1.5rem;
+  background: #ffffff;
+  padding: 7rem 1.5rem;
 `
 
 const TestGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: 1.25rem;
 
   @media (min-width: 640px) {
     grid-template-columns: repeat(2, 1fr);
@@ -424,10 +485,10 @@ const TestGrid = styled.div`
 
 const TestCard = styled.blockquote`
   background: #ffffff;
-  border: 1px solid #e0d0ff;
-  border-radius: 12px;
-  padding: 1.75rem;
-  border-left: 4px solid #f5a623;
+  border: 0;
+  border-radius: 16px;
+  padding: 2rem;
+  background: #f7f4ee;
   margin: 0;
 `
 
@@ -453,11 +514,11 @@ const featuredSkills = skills.slice(0, 3)
 
 const testimonials = [
   {
-    quote: "I didn't have a job for 4 months after NYSC. The savings I built during service kept me afloat.",
+    quote: "I didn't have a job for 4 months after NYSC. The savings I built during service kept me really helped me.",
     author: 'Tolu, Lagos',
   },
   {
-    quote: "I wish someone told me to save my allawee earlier. That buffer changed everything.",
+    quote: "I wish someone told me prepare for after NYSC. Save, plan to get a job etc",
     author: 'Chisom, Abuja',
   },
 ]
@@ -470,48 +531,45 @@ export default function HomepageClient() {
         <HeroInner>
           <HeroHeadline>What next after NYSC?</HeroHeadline>
           <HeroSub>
-            You&apos;ve served. Now it&apos;s time to land well. Find the right job, build skills employers
+            NYSC will end. Then it&apos;s time to land well. Find the right job, build skills employers
             actually want, and make sure you&apos;re financially ready for what comes next.
           </HeroSub>
-          <HeroCTA href="#pillars">Let&apos;s figure it out →</HeroCTA>
         </HeroInner>
       </HeroSection>
 
       {/* Three Pillars */}
       <PillarsSection id="pillars">
         <Container>
-          <SectionLabel>Your roadmap</SectionLabel>
-          <SectionTitle>Three things that separate corpers who land well from those who don&apos;t.</SectionTitle>
+          <SectionTitle>Three things you need to have in place</SectionTitle>
 
           <PillarsGrid>
-            <PillarCard href="/jobs">
-              <PillarIcon>🔍</PillarIcon>
-              <PillarTitle>Find Work</PillarTitle>
+             <PillarCard href="/protect">
+              <PillarIcon aria-hidden="true"><i className="fi fi-sr-shield-check" /></PillarIcon>
+              <PillarTitle>Protect Your Future</PillarTitle>
               <PillarText>
-                The job market is competitive but navigable. See what&apos;s hiring right now and what employers
-                are actually looking for.
+                Ensure you have funds rely and fallback on for essential needs. Here&apos;s how corpers who
+                landed well handled it.
               </PillarText>
-              <PillarArrow>Browse open roles →</PillarArrow>
+              <PillarArrow>Learn more</PillarArrow>
             </PillarCard>
 
             <PillarCard href="/skills">
-              <PillarIcon>📚</PillarIcon>
+              <PillarIcon aria-hidden="true"><i className="fi fi-sr-book-open-cover" /></PillarIcon>
               <PillarTitle>Build Skills</PillarTitle>
               <PillarText>
-                Some skills can be learned in 3 months and earn you ₦200k/month. Know what to focus on
-                before service ends.
+                Some skills can be learned in 3 months and earn you atleast NGN300k/month. Find your path now.
               </PillarText>
-              <PillarArrow>See in-demand skills →</PillarArrow>
+              <PillarArrow>See in-demand skills</PillarArrow>
             </PillarCard>
 
-            <PillarCard href="/protect">
-              <PillarIcon>🛡️</PillarIcon>
-              <PillarTitle>Protect Your Future</PillarTitle>
+            <PillarCard href="/jobs">
+              <PillarIcon aria-hidden="true"><i className="fi fi-sr-search" /></PillarIcon>
+              <PillarTitle>Find Work</PillarTitle>
               <PillarText>
-                The gap between your last allawee and your first salary is real. Here&apos;s how corpers who
-                landed well handled it.
+                The job market is competitive but easy with the right skills. See what&apos;s hiring and what employers
+                are looking for.
               </PillarText>
-              <PillarArrow>Protect your future →</PillarArrow>
+              <PillarArrow>Browse open roles </PillarArrow>
             </PillarCard>
           </PillarsGrid>
         </Container>
@@ -528,8 +586,7 @@ export default function HomepageClient() {
               Your allawee stops. <em>Rent doesn&apos;t wait.</em>
             </TransitionStat>
             <TransitionStat>
-              The corpers who land well didn&apos;t just job hunt — <em>they prepared.</em>
-            </TransitionStat>
+              The corpers who got great jobs were prepared with the skills.</TransitionStat>
           </TransitionInner>
         </Container>
       </TransitionSection>
@@ -539,10 +596,9 @@ export default function HomepageClient() {
         <Container>
           <SectionHeader>
             <div>
-              <SectionLabel>Fresh listings</SectionLabel>
-              <SectionTitle style={{ marginBottom: 0 }}>What&apos;s hiring for fresh graduates right now</SectionTitle>
+              <SectionTitle style={{ marginBottom: 0 }}>See who&apos;s hiring right now</SectionTitle>
             </div>
-            <SeeAllLink href="/jobs">See all open roles →</SeeAllLink>
+            <SeeAllLink href="/jobs">See all open roles</SeeAllLink>
           </SectionHeader>
 
           <JobsGrid>
@@ -565,13 +621,13 @@ export default function HomepageClient() {
               <SectionLabel>Skill up</SectionLabel>
               <SectionTitle style={{ marginBottom: 0 }}>Skills that pay in your first year out</SectionTitle>
             </div>
-            <SeeAllLink href="/skills">See full skills guide →</SeeAllLink>
+            <SeeAllLink href="/skills">See full skills guide</SeeAllLink>
           </SectionHeader>
 
           <SkillsGrid>
             {featuredSkills.map(skill => (
               <SkillCard key={skill.name}>
-                <SkillName>{skill.demandEmoji} {skill.name}</SkillName>
+                <SkillName>{skill.name}</SkillName>
                 <SkillIncome>{skill.incomeRange}</SkillIncome>
                 <SkillTime>Job-ready in {skill.timeToReady}</SkillTime>
               </SkillCard>
@@ -585,16 +641,18 @@ export default function HomepageClient() {
         <Container>
           <BridgeInner>
             <BridgeBox>
-              <BridgeHeading>One more thing — the gap is real, but it&apos;s manageable.</BridgeHeading>
-              <BridgeBody>
-                Most corpers don&apos;t think about the financial gap until they&apos;re in it. 3 months without income,
-                rent due, job search dragging. The ones who handled it well saved early — even small amounts
-                during service.
-              </BridgeBody>
+              <BridgeCopy>
+                <BridgeHeading>Make the months after NYSC less stressful.</BridgeHeading>
+                <BridgeBody>
+                  Set aside a fixed amount while your allawee is still coming in. Small, automatic deposits can give you room to search for the right role instead of taking the first offer out of pressure.
+                </BridgeBody>
+                <BridgeCTA href="/protect">Plan your savings</BridgeCTA>
+              </BridgeCopy>
               <StatCallout>
-                <p>₦15,000 saved monthly for 6 months = ₦97,200 with Northquest by the time service ends.</p>
+                <small>Six-month projection</small>
+                <strong>₦315,750</strong>
+                <p>Saving ₦50,000 each month, including projected interest.</p>
               </StatCallout>
-              <BridgeCTA href="/protect">Protect Your Future →</BridgeCTA>
             </BridgeBox>
           </BridgeInner>
         </Container>
@@ -603,8 +661,7 @@ export default function HomepageClient() {
       {/* Testimonials */}
       <TestimonialsSection>
         <Container>
-          <SectionLabel>From corpers who made it through</SectionLabel>
-          <SectionTitle>Real talk from the other side</SectionTitle>
+          <SectionTitle>Corpers who made it to the other side</SectionTitle>
 
           <TestGrid>
             {testimonials.map((t, i) => (

@@ -2,7 +2,6 @@ export interface Skill {
   name: string
   demand: 'high' | 'growing' | 'stable'
   demandLabel: string
-  demandEmoji: string
   timeToReady: string
   incomeRange: string
   howToEarn: 'Employment' | 'Freelance' | 'Both'
@@ -15,7 +14,6 @@ export const skills: Skill[] = [
     name: 'Data Analysis',
     demand: 'high',
     demandLabel: 'High',
-    demandEmoji: '🔥',
     timeToReady: '8–12 weeks',
     incomeRange: '₦150k – ₦400k/month',
     howToEarn: 'Both',
@@ -26,7 +24,6 @@ export const skills: Skill[] = [
     name: 'Digital Marketing',
     demand: 'high',
     demandLabel: 'High',
-    demandEmoji: '🔥',
     timeToReady: '6–10 weeks',
     incomeRange: '₦100k – ₦300k/month',
     howToEarn: 'Both',
@@ -37,7 +34,6 @@ export const skills: Skill[] = [
     name: 'UI/UX Design',
     demand: 'high',
     demandLabel: 'High',
-    demandEmoji: '🔥',
     timeToReady: '10–16 weeks',
     incomeRange: '₦200k – ₦600k/month',
     howToEarn: 'Both',
@@ -48,7 +44,6 @@ export const skills: Skill[] = [
     name: 'Content Writing / Copywriting',
     demand: 'growing',
     demandLabel: 'Growing',
-    demandEmoji: '⚡',
     timeToReady: '4–8 weeks',
     incomeRange: '₦80k – ₦250k/month',
     howToEarn: 'Both',
@@ -59,7 +54,6 @@ export const skills: Skill[] = [
     name: 'Video Editing',
     demand: 'growing',
     demandLabel: 'Growing',
-    demandEmoji: '⚡',
     timeToReady: '4–8 weeks',
     incomeRange: '₦80k – ₦200k/month',
     howToEarn: 'Freelance',
@@ -70,7 +64,6 @@ export const skills: Skill[] = [
     name: 'Frontend Web Development',
     demand: 'high',
     demandLabel: 'High',
-    demandEmoji: '🔥',
     timeToReady: '16–24 weeks',
     incomeRange: '₦250k – ₦800k/month',
     howToEarn: 'Both',
@@ -81,7 +74,6 @@ export const skills: Skill[] = [
     name: 'Virtual Assistant',
     demand: 'growing',
     demandLabel: 'Growing',
-    demandEmoji: '⚡',
     timeToReady: '2–4 weeks',
     incomeRange: '₦60k – ₦180k/month',
     howToEarn: 'Freelance',
@@ -92,7 +84,6 @@ export const skills: Skill[] = [
     name: 'Social Media Management',
     demand: 'stable',
     demandLabel: 'Stable',
-    demandEmoji: '📈',
     timeToReady: '4–6 weeks',
     incomeRange: '₦70k – ₦200k/month',
     howToEarn: 'Both',
@@ -103,7 +94,6 @@ export const skills: Skill[] = [
     name: 'Graphic Design',
     demand: 'stable',
     demandLabel: 'Stable',
-    demandEmoji: '📈',
     timeToReady: '6–10 weeks',
     incomeRange: '₦80k – ₦250k/month',
     howToEarn: 'Both',
@@ -114,7 +104,6 @@ export const skills: Skill[] = [
     name: 'Accounting / Bookkeeping',
     demand: 'stable',
     demandLabel: 'Stable',
-    demandEmoji: '📈',
     timeToReady: '8–12 weeks',
     incomeRange: '₦120k – ₦300k/month',
     howToEarn: 'Employment',

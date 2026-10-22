@@ -15,28 +15,18 @@ const Container = styled.div`
 /* ─── Page Header ────────────────────────────────────────────────── */
 
 const PageHeader = styled.section`
-  background: #2d0057;
-  padding: 4rem 1.5rem 3.5rem;
+  background: radial-gradient(circle at 82% 20%, rgba(141,86,171,.3), transparent 30%), #2d0057;
+  padding: 6.5rem 1.5rem 5rem;
   position: relative;
 
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 15%;
-    width: 4px;
-    height: 70%;
-    background: #f5a623;
-    border-radius: 0 2px 2px 0;
-  }
 `
 
 const PageHeadline = styled.h1`
   font-family: var(--font-syne), system-ui, sans-serif;
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
   font-weight: 800;
   color: #ffffff;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.055em;
   margin-bottom: 0.75rem;
   line-height: 1.1;
 `
@@ -51,8 +41,7 @@ const PageSub = styled.p`
 /* ─── Tab nav ────────────────────────────────────────────────────── */
 
 const TabNav = styled.div`
-  background: #ffffff;
-  border-bottom: 2px solid #e0d0ff;
+  background: #f7f4ee;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 `
@@ -60,23 +49,23 @@ const TabNav = styled.div`
 const TabInner = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: .75rem 1.5rem;
   display: flex;
-  gap: 0;
+  gap: .5rem;
 `
 
 const Tab = styled.button<{ $active: boolean }>`
-  padding: 1rem 1.5rem;
+  padding: .7rem 1rem;
   font-size: 0.9rem;
   font-weight: ${p => p.$active ? '700' : '500'};
   color: ${p => p.$active ? '#2d0057' : '#64748b'};
-  background: none;
+  background: ${p => p.$active ? '#ffffff' : 'transparent'};
   border: none;
-  border-bottom: 3px solid ${p => p.$active ? '#f5a623' : 'transparent'};
+  border-radius: 10px;
   cursor: pointer;
   white-space: nowrap;
   transition: color 0.15s;
-  margin-bottom: -2px;
+  box-shadow: ${p => p.$active ? '0 6px 20px rgba(45,0,87,.07)' : 'none'};
 
   &:hover {
     color: #2d0057;
@@ -88,15 +77,6 @@ const Tab = styled.button<{ $active: boolean }>`
 const ContentSection = styled.section`
   background: #ffffff;
   padding: 4rem 1.5rem 5rem;
-`
-
-const SectionLabel = styled.p`
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #6a0dad;
-  margin-bottom: 0.75rem;
 `
 
 const SectionTitle = styled.h2`
@@ -121,10 +101,13 @@ const ItemsGrid = styled.div`
 
 const Item = styled.div<{ $accent?: boolean }>`
   background: ${p => p.$accent ? '#f3eeff' : '#ffffff'};
-  border: 1px solid #e0d0ff;
-  border-radius: 10px;
+  border: 0;
+  border-radius: 16px;
   padding: 1.5rem;
-  border-left: ${p => p.$accent ? '4px solid #f5a623' : '1px solid #e0d0ff'};
+  box-shadow: 0 8px 28px rgba(45,0,87,.05);
+  transition: transform .2s ease, box-shadow .2s ease;
+
+  &:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(45,0,87,.08); }
 `
 
 const ItemTitle = styled.h3`
@@ -154,15 +137,15 @@ const DosDontsGrid = styled.div`
 
 const DoCard = styled.div`
   background: rgba(245, 166, 35, 0.06);
-  border: 1px solid rgba(245, 166, 35, 0.25);
-  border-radius: 10px;
+  border: 0;
+  border-radius: 16px;
   padding: 1.5rem;
 `
 
 const DontCard = styled.div`
   background: rgba(106, 13, 173, 0.04);
-  border: 1px solid #e0d0ff;
-  border-radius: 10px;
+  border: 0;
+  border-radius: 16px;
   padding: 1.5rem;
 `
 
@@ -307,7 +290,7 @@ const interviewTips = [
   },
   {
     title: 'The STAR method',
-    text: 'Situation → Task → Action → Result. Every behavioural question ("describe a time when...") should be answered this way. Practice it until it\'s natural.',
+    text: 'Situation - Task - Action - Result. Every behavioural question ("describe a time when...") should be answered this way. Practice it until it\'s natural.',
   },
   {
     title: 'Research before every interview',
@@ -376,7 +359,6 @@ export default function ToolkitClient() {
 
           {activeTab === 'cv' && (
             <>
-              <SectionLabel>First impressions</SectionLabel>
               <SectionTitle>Build a CV that gets you through the first cut</SectionTitle>
 
               <DosDontsGrid>
@@ -411,7 +393,6 @@ export default function ToolkitClient() {
 
           {activeTab === 'linkedin' && (
             <>
-              <SectionLabel>Your digital handshake</SectionLabel>
               <SectionTitle>Set up a LinkedIn profile that actually works</SectionTitle>
               <ItemsGrid>
                 {linkedinTips.map(tip => (
@@ -426,7 +407,6 @@ export default function ToolkitClient() {
 
           {activeTab === 'interview' && (
             <>
-              <SectionLabel>Walk in prepared</SectionLabel>
               <SectionTitle>Interview prep for Nigerian fresh graduates</SectionTitle>
               <ItemsGrid>
                 {interviewTips.map(tip => (
@@ -441,7 +421,6 @@ export default function ToolkitClient() {
 
           {activeTab === 'strategy' && (
             <>
-              <SectionLabel>Play the long game</SectionLabel>
               <SectionTitle>How to run your job search like a professional</SectionTitle>
               <ItemsGrid>
                 {strategyTips.map(tip => (
@@ -466,7 +445,7 @@ export default function ToolkitClient() {
             <strong style={{ color: '#f5a623' }}>Start building that buffer now.</strong>
           </>
         }
-        cta="Protect your future →"
+        cta="Protect your future"
       />
     </>
   )

@@ -5,8 +5,8 @@ import Link from 'next/link'
 import styled from 'styled-components'
 
 const FooterEl = styled.footer`
-  background: #2d0057;
-  padding: 3rem 1.5rem 2rem;
+  background: #1c1222;
+  padding: 4.5rem 1.5rem 2rem;
 `
 
 const Inner = styled.div`
@@ -18,7 +18,7 @@ const Top = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 4rem;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -31,8 +31,9 @@ const Brand = styled.div``
 
 const LogoText = styled.div`
   font-family: var(--font-syne), system-ui, sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.35rem;
   font-weight: 700;
+  letter-spacing: -0.04em;
   color: #ffffff;
   margin-bottom: 0.5rem;
 
@@ -44,7 +45,7 @@ const LogoText = styled.div`
 const Tagline = styled.p`
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.55);
-  max-width: 280px;
+  max-width: 340px;
   line-height: 1.5;
 `
 
@@ -102,7 +103,7 @@ export default function Footer() {
       <Inner>
         <Top>
           <Brand>
-            <LogoText>Northquest <span>Finance</span></LogoText>
+            <LogoText>LANYSC</LogoText>
             <Tagline>Your service year is an opportunity. Don&apos;t let it pass.</Tagline>
           </Brand>
 
@@ -116,9 +117,9 @@ export default function Footer() {
 
         <Bottom>
           <div>
-            © 2025 Northquest Finance ·{' '}
-            <a href="https://www.northquestfinance.com" style={{ color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}>
-              www.northquestfinance.com
+            © 2026 LANYSC ·{' '}
+            <a href="https://www.lifeafternysc.com" style={{ color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}>
+              www.lifeafternysc.com
             </a>
           </div>
           <LegalLinks>

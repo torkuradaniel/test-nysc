@@ -9,9 +9,9 @@ const NavWrapper = styled.nav<{ $scrolled: boolean }>`
   position: sticky;
   top: 0;
   z-index: 100;
-  background: ${p => p.$scrolled ? 'rgba(45, 0, 87, 0.97)' : '#2D0057'};
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(224, 208, 255, 0.15);
+  background: ${p => p.$scrolled ? 'rgba(38, 19, 52, 0.96)' : '#261334'};
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   transition: background 0.2s ease;
 `
 
@@ -19,7 +19,7 @@ const NavInner = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
-  height: 68px;
+  height: 76px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27,11 +27,11 @@ const NavInner = styled.div`
 
 const Logo = styled(Link)`
   font-family: var(--font-syne), system-ui, sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: #ffffff;
   text-decoration: none;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.04em;
   flex-shrink: 0;
 
   span {
@@ -50,10 +50,11 @@ const DesktopLinks = styled.div`
 `
 
 const NavLink = styled(Link)<{ $active: boolean }>`
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 500;
   color: ${p => p.$active ? '#f5a623' : 'rgba(255,255,255,0.85)'};
   text-decoration: none;
+  letter-spacing: 0.035em;
   transition: color 0.15s ease;
 
   &:hover {
@@ -67,14 +68,14 @@ const CTAButton = styled(Link)`
   color: #1a0a2e;
   background: #f5a623;
   padding: 0.5rem 1.25rem;
-  border-radius: 6px;
+  border-radius: 10px;
   text-decoration: none;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   white-space: nowrap;
 
   &:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(245, 166, 35, 0.45);
+    box-shadow: 0 8px 24px rgba(229, 168, 47, 0.2);
   }
 `
 
@@ -142,7 +143,7 @@ export default function Nav() {
     <NavWrapper $scrolled={scrolled} role="navigation" aria-label="Main navigation">
       <NavInner>
         <Logo href="/">
-          Northquest <span>Finance</span>
+          LANYSC
         </Logo>
 
         <DesktopLinks>
