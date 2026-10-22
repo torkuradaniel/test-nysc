@@ -130,6 +130,14 @@ const SkillRow = styled.div`
   }
 `
 
+const CourseLink = styled.a`
+  color: #6a0dad;
+  font-weight: 700;
+  text-decoration: none;
+
+  &:hover { text-decoration: underline; }
+`
+
 const Divider = styled.hr`
   border: none;
   border-top: 1px solid rgba(106,13,173,.1);
@@ -175,7 +183,7 @@ const ResourceGrid = styled.div`
   }
 `
 
-const ResourceCard = styled.div`
+const ResourceCard = styled.a`
   background: #ffffff;
   border: 0;
   border-radius: 14px;
@@ -185,6 +193,7 @@ const ResourceCard = styled.div`
   flex-direction: column;
   gap: 0.25rem;
   transition: transform .2s ease;
+  text-decoration: none;
 
   &:hover { transform: translateY(-2px); }
 `
@@ -269,12 +278,12 @@ const PlatformNote = styled.p`
 /* ─── Data ───────────────────────────────────────────────────────── */
 
 const freeResources = [
-  { name: 'Google Career Certificates', note: 'Data, UX, IT Support, Project Management — on Coursera (audit free)' },
-  { name: 'Coursera (audit mode)', note: 'Access most courses for free without paying for certificates' },
-  { name: 'Meta Blueprint', note: 'Free digital marketing certifications from Meta — highly respected' },
-  { name: 'ALX Africa', note: 'Tech and leadership programmes, many free or subsidised for Africans' },
-  { name: 'HNG Internship', note: 'Remote internship cohorts for designers, developers, and marketers' },
-  { name: 'freeCodeCamp', note: 'Full web development curriculum, 100% free, self-paced' },
+  { name: 'Google Career Certificates', note: 'Data, UX, IT Support, Project Management — on Coursera (audit free)', url: 'https://www.coursera.org/google-career-certificates' },
+  { name: 'Coursera (audit mode)', note: 'Access most courses for free without paying for certificates', url: 'https://www.coursera.org/courses?query=free' },
+  { name: 'Meta Blueprint', note: 'Free digital marketing certifications from Meta — highly respected', url: 'https://www.facebook.com/business/learn' },
+  { name: 'ALX Africa', note: 'Tech and leadership programmes, many free or subsidised for Africans', url: 'https://www.alxafrica.com/programmes/' },
+  { name: 'HNG Internship', note: 'Remote internship cohorts for designers, developers, and marketers', url: 'https://hng.tech/internship' },
+  { name: 'freeCodeCamp', note: 'Full web development curriculum, 100% free, self-paced', url: 'https://www.freecodecamp.org/learn/' },
 ]
 
 const platforms = [
@@ -301,7 +310,7 @@ export default function SkillsClient() {
         <Container>
           <PageHeadline>Skills that pay in your first year out</PageHeadline>
           <PageSub>
-            Not theory. Real skills, real income ranges, and honest timelines for getting there.
+            Pratical skills that can give you income and honest timelines for getting there.
           </PageSub>
         </Container>
       </PageHeader>
@@ -336,11 +345,15 @@ export default function SkillsClient() {
                 </SkillRow>
                 <SkillRow>
                   <strong>Free:</strong>
-                  {skill.freeResource}
+                  <CourseLink href={skill.freeResourceUrl} target="_blank" rel="noopener noreferrer">
+                    {skill.freeResource}
+                  </CourseLink>
                 </SkillRow>
                 <SkillRow>
                   <strong>Paid:</strong>
-                  {skill.paidResource}
+                  <CourseLink href={skill.paidResourceUrl} target="_blank" rel="noopener noreferrer">
+                    {skill.paidResource}
+                  </CourseLink>
                 </SkillRow>
               </SkillCard>
             ))}
@@ -355,7 +368,7 @@ export default function SkillsClient() {
 
           <ResourceGrid>
             {freeResources.map(r => (
-              <ResourceCard key={r.name}>
+              <ResourceCard key={r.name} href={r.url} target="_blank" rel="noopener noreferrer">
                 <ResourceName>{r.name}</ResourceName>
                 <ResourceNote>{r.note}</ResourceNote>
               </ResourceCard>
