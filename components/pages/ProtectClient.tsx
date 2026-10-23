@@ -549,7 +549,7 @@ export default function ProtectClient() {
 
             <GapLine>
               <GapDot />
-              <GapText>Your allawee stops after you pass. <em>Your expenses start increasing.</em></GapText>
+              <GapText>Your allawee stops after your NYSC year ends. <em>Your expenses start increasing.</em></GapText>
             </GapLine>
             <GapLine>
               <GapDot />
