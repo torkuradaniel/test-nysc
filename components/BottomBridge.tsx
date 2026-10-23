@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import Link from 'next/link'
 import styled from 'styled-components'
 
 const Section = styled.section`
@@ -47,7 +46,7 @@ const Body = styled.p`
   }
 `
 
-const CTA = styled(Link)`
+const CTA = styled.a`
   display: inline-block;
   background: #f5a623;
   color: #1a0a2e;
@@ -89,7 +88,7 @@ export default function BottomBridge({
             </>
           )}
         </Body>
-        <CTA href="/protect">{cta}</CTA>
+        <CTA href="https://www.northquestfinance.com/">{cta}</CTA>
       </Inner>
     </Section>
   )
