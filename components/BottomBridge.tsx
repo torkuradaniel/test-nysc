@@ -88,7 +88,9 @@ export default function BottomBridge({
             </>
           )}
         </Body>
-        <CTA href="https://www.northquestfinance.com/">{cta}</CTA>
+        <CTA href="https://www.northquestfinance.com/?utm_source=lanysc&utm_medium=referral&utm_campaign=nysc_website">
+          {cta}
+        </CTA>
       </Inner>
     </Section>
   )

@@ -715,9 +715,13 @@ export default function ProtectClient() {
             Minimum ₦1,000. Takes 3 minutes to set up. Earns while you serve.
           </CTASub>
 
-          <PrimaryBtn href="https://www.northquestfinance.com/">Start Saving Today</PrimaryBtn>
+          <PrimaryBtn href="https://www.northquestfinance.com/?utm_source=lanysc&utm_medium=referral&utm_campaign=nysc_website">
+            Start Saving Today
+          </PrimaryBtn>
           <div style={{ marginTop: '1rem', textAlign: 'center' }}>
-            <SecondaryBtn href="https://www.northquestfinance.com/">Download the App</SecondaryBtn>
+            <SecondaryBtn href="https://www.northquestfinance.com/?utm_source=lanysc&utm_medium=referral&utm_campaign=nysc_website">
+              Download the App
+            </SecondaryBtn>
           </div>
 
           <TrustStrip>
