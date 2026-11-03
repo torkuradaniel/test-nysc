@@ -41,13 +41,13 @@ async function sendWelcomeEmail({
       from,
       to: [email],
       subject: 'Welcome to LANYSC',
-      text: `Hi ${firstName},\n\nWelcome to LANYSC. We help you prepare for life after NYSC with relevant job opportunities, practical career skills, useful CV and interview resources, and simple ways to build financial security before service ends.\n\nWe will send you useful openings and straightforward guidance occasionally—no noise.\n\nHere is to landing well after NYSC.\n\nThe LANYSC team`,
+      text: `Hi ${firstName},\n\nWelcome to LANYSC. We help you prepare for life after NYSC with relevant job opportunities, practical career skills, useful CV and interview resources, and simple ways to build financial security before service ends.\n\nWe will send you useful openings and straightforward guidance occasionally.\n\nHere is to landing well after NYSC.\n\nThe LANYSC team`,
       html: `
         <div style="background:#f7f4ee;padding:32px 16px;font-family:Georgia,serif;color:#1a0a2e;">
           <div style="max-width:600px;margin:0 auto;background:#ffffff;border-radius:18px;padding:40px 32px;">
-            <p style="margin:0 0 24px;color:#6a0dad;font:700 13px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;">Northquest</p>
+            <p style="margin:0 0 24px;color:#6a0dad;font:700 13px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;">LANYSC</p>
             <h1 style="margin:0 0 20px;font:700 30px Arial,sans-serif;letter-spacing:-.03em;color:#2d0057;">Welcome, ${safeFirstName}.</h1>
-            <p style="margin:0 0 18px;font-size:17px;line-height:1.7;">Northquest helps you prepare for life after NYSC—before your service year ends.</p>
+            <p style="margin:0 0 18px;font-size:17px;line-height:1.7;">LANYSC helps you prepare for life after NYSC—before your service year ends.</p>
             <p style="margin:0 0 18px;font-size:17px;line-height:1.7;">You will find relevant job opportunities, practical career skills, useful CV and interview resources, and simple ways to build financial security for what comes next.</p>
             <p style="margin:0 0 28px;font-size:17px;line-height:1.7;">We will send you useful openings and straightforward guidance occasionally.</p>
             <p style="margin:0;font-size:17px;line-height:1.7;"><strong>Here is to success after NYSC.</strong><br />The LANYSC team</p>
